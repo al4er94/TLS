@@ -1,16 +1,54 @@
 var calculateOrder = {
-    init:function(){      
+    init:function(){   
+        //Добавляем производителя
         jQuery('#content_calc .add_manufacturer').on('click', function(){
            calculateOrder.addManufacturer();
         });
+        
+        //Добавляем модель
         jQuery('#content_calc .add_model').on('click', function(){
            calculateOrder.addModel();
         });
+        
+        //Добавляем модификацию
         jQuery('#content_calc .add_chassis').on('click', function(){
            calculateOrder.addChassis();
         });
+        
+        //Изменение производителя в добавлении модели
         jQuery('#content_calc .chassis-form select[name=manufacturer_select]').on('change', function(){
-           calculateOrder.changeManufacturerSelect(jQuery(this).val());
+           calculateOrder.changeManufacturerSelect(jQuery(this).val(), '#content_calc .chassis-form select[name=model_select]');
+        });
+        
+        //Изменение производителя в добавлении прайса
+        jQuery('#content_calc .add-price-id select[name=manufacturer_select]').on('change', function(){
+           calculateOrder.changeManufacturerSelect(jQuery(this).val(), '#content_calc .add-price-id select[name=model_select]');
+        });
+        
+        //Изменение модели в добавлении прайса
+        jQuery('#content_calc .add-price-id select[name=model_select]').on('change', function(){
+           calculateOrder.changeModelSelect(jQuery(this).val(), '#content_calc .add-price-id select[name=chasis_select]');
+        });
+        
+        //Изменение модели в добавлении прайса
+        jQuery('#content_calc .add-price-id select[name=model_select]').on('change', function(){
+           calculateOrder.changeModelSelect(jQuery(this).val(), '#content_calc .add-price-id select[name=chasis_select]');
+        });
+        
+        jQuery('#content_calc .add-price-button').on('click', function(){
+            let inputArr= document.querySelectorAll('.add_data .form-price input');
+            let dataArray = {};
+            inputArr.forEach(element => {
+                dataArray[element.getAttribute('name')] = element.value;
+            });
+            let data = {
+                action: 'addPriceInBd',
+                dataArray: dataArray
+            }
+            //console.log(data);
+            jQuery.post(ajaxurl, data, function(response) {
+                console.log(response);
+            });
         });
         
     },
@@ -54,13 +92,22 @@ var calculateOrder = {
             });
         }
     },
-    changeManufacturerSelect:function(value){
+    changeManufacturerSelect:function(value, selector){
         let data= {
             action: 'changeManufacturerSelect',
             manufacturer:value
         };
         jQuery.post(ajaxurl, data, function(response) {
-            jQuery('#content_calc .chassis-form select[name=model_select]').html(response);
+            jQuery(selector).html(response);
+        });
+    },
+    changeModelSelect:function(value, selector){
+        let data= {
+            action: 'changeModelSelect',
+            model:value
+        }
+        jQuery.post(ajaxurl, data, function(response) {
+            jQuery(selector).html(response);
         });
     }
     

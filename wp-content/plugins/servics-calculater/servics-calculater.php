@@ -22,6 +22,8 @@ class ServicsCalc{
         add_action( 'wp_ajax_addModel', array(__CLASS__, 'addModel') );
         add_action( 'wp_ajax_addChassis', array(__CLASS__, 'addChassis') );
         add_action( 'wp_ajax_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
+        add_action( 'wp_ajax_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
+        add_action( 'wp_ajax_addPriceInBd', array(__CLASS__, 'addPriceInBd'));
         self::updateBD();
     }
     
@@ -56,6 +58,8 @@ class ServicsCalc{
                 . "`name` VARCHAR(256) NOT NULL , "
                 . "PRIMARY KEY (`id`)) ENGINE = InnoDB;";
         $wpdb->query($sql);
+        
+        $sql = "CREATE TABLE `tls`.`wp_calc_price` ( `id` INT NOT NULL AUTO_INCREMENT , `price_id` VARCHAR(256) NOT NULL , `oil` VARCHAR(256) NOT NULL DEFAULT '0' , `oil_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `oil_gasket` VARCHAR(256) NOT NULL DEFAULT '0' , `air_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `salon_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `break_fluid` VARCHAR(256) NOT NULL DEFAULT '0' , `plugs` VARCHAR(256) NOT NULL DEFAULT '0' , `diagnostics` VARCHAR(256) NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
     }
     
     public static function addManufacturer(){
@@ -112,6 +116,17 @@ class ServicsCalc{
         wp_die();
     }
     
+    public static function changeModelSelect(){
+        global $wpdb;
+        $newtable = $wpdb->get_results( "SELECT * FROM `".$wpdb->prefix."calc_chassis` WHERE `model_id`=".intval($_POST['model']) );
+        $html = '';
+        foreach ($newtable as $item){
+            $html .= '<option value="'.$item->id.'">'.$item->name.'</option>';
+        }
+        echo $html;
+        wp_die();
+    }
+
     public static function addChassis(){
         global $wpdb;
         if($_POST['model'] !== ''){
@@ -125,6 +140,11 @@ class ServicsCalc{
         $wpdb->insert($table, $data);
         $my_id = $wpdb->insert_id;
         echo "Добавлена модификация $chassis с id=".$my_id;
+        wp_die();
+    }
+    
+    public static function addPriceInBd(){
+        var_dump($_POST);
         wp_die();
     }
 }
