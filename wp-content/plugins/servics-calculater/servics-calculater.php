@@ -24,6 +24,7 @@ class ServicsCalc{
         add_action( 'wp_ajax_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
         add_action( 'wp_ajax_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
         add_action( 'wp_ajax_addPriceInBd', array(__CLASS__, 'addPriceInBd'));
+        add_action( 'wp_ajax_getPrice', array(__CLASS__, 'getPrice'));
         self::updateBD();
     }
     
@@ -144,8 +145,61 @@ class ServicsCalc{
     }
     
     public static function addPriceInBd(){
-        var_dump($_POST);
+        global $wpdb;
+        $priceIdTable = $wpdb->get_results( "SELECT `id` FROM `".$wpdb->prefix."calc_price_id` WHERE"
+                . " `manufacture_id`=".intval($_POST['manufacturer'])." AND"
+                . " `model_id`=".intval($_POST['model'])." AND"
+                . " `chassis_id`=".intval($_POST['chasis']) );
+        //var_dump($priceIdTable);
+        if(count($priceIdTable)==0){
+            $table = $wpdb->prefix.'calc_price_id';
+            $data = [
+                'manufacture_id' => intval($_POST['manufacturer']),
+                'model_id' => intval($_POST['model']),
+                'chassis_id' => intval($_POST['chasis']),
+            ];
+            $wpdb->insert($table, $data);
+            $priceId = $wpdb->insert_id;           
+        }else{
+            $priceId = $priceIdTable[0]->id;
+        }
+        
+        $priceTable = $wpdb->get_results("SELECT `id` FROM `".$wpdb->prefix."calc_price` WHERE `price_id`=".$priceId);
+        $table = $wpdb->prefix.'calc_price';
+        $data = [
+            'price_id' => $priceId,
+            'oil' => floatval($_POST['dataArray']['oil']),
+            'oil_filter' => floatval($_POST['dataArray']['oil_filter']),
+            'oil_gasket' => floatval($_POST['dataArray']['oil_gasket']),
+            'air_filter' => floatval($_POST['dataArray']['air_filter']),
+            'salon_filter' => floatval($_POST['dataArray']['salon_filter']),
+            'break_fluid' => floatval($_POST['dataArray']['break_fluid']),
+            'plugs' => floatval($_POST['dataArray']['plugs']),
+            'diagnostics' => floatval($_POST['dataArray']['diagnostics']),
+        ];
+        if(count($priceTable)==0){
+            $wpdb->insert($table, $data);
+        }else{
+            $wpdb->update($table, $data, ['price_id' => $priceId]);;
+        }
+        echo 'Прайс обновлен!';
         wp_die();
+    }
+    
+    public static function getPrice(){
+        global $wpdb;
+        
+        $priceTable = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."calc_price` "
+                ." LEFT JOIN `".$wpdb->prefix."calc_price_id` "
+                . " ON `".$wpdb->prefix."calc_price`.`price_id` = `".$wpdb->prefix."calc_price_id`.`id`"
+                . "WHERE `manufacture_id`=".intval($_POST['manufacturer'])." AND"
+                . "`model_id`=".intval($_POST['model'])." AND"
+                . "`chassis_id`=".intval($_POST['chasis']));
+        
+        echo (!empty($priceTable)?json_encode($priceTable[0]):'[]');
+        
+        wp_die();
+        
     }
 }
 

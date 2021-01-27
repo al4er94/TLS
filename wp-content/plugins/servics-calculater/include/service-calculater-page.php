@@ -43,7 +43,7 @@
         <h2>Добавить прайс</h2>
         <div class = "form add-price-id">
             <select name="manufacturer_select">
-                <option value ="" selected="selected"></option>
+                <option value =""></option>
                 <?php 
                 foreach ($data['manufacturer'] as $manufacturer){
                     ?>

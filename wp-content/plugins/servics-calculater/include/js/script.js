@@ -30,11 +30,11 @@ var calculateOrder = {
            calculateOrder.changeModelSelect(jQuery(this).val(), '#content_calc .add-price-id select[name=chasis_select]');
         });
         
-        //Изменение модели в добавлении прайса
-        jQuery('#content_calc .add-price-id select[name=model_select]').on('change', function(){
-           calculateOrder.changeModelSelect(jQuery(this).val(), '#content_calc .add-price-id select[name=chasis_select]');
+        //Изменение модификации в добавлении прайса. Подгрузка прайса
+        jQuery('#content_calc .add-price-id select[name=chasis_select]').on('change', function(){
+           calculateOrder.changeChasisSelect();
         });
-        
+        //Добавляем прайс в БД
         jQuery('#content_calc .add-price-button').on('click', function(){
             let inputArr= document.querySelectorAll('.add_data .form-price input');
             let dataArray = {};
@@ -43,11 +43,17 @@ var calculateOrder = {
             });
             let data = {
                 action: 'addPriceInBd',
+                manufacturer: document.querySelector('#content_calc .add-price-id select[name=manufacturer_select]').value,
+                model: document.querySelector('#content_calc .add-price-id select[name=model_select]').value,
+                chasis: document.querySelector('#content_calc .add-price-id select[name=chasis_select]').value,
                 dataArray: dataArray
             }
-            //console.log(data);
+            if(data.manufacturer == '' || data.model == '' || data.chasis ==''){
+                alert('Проверь производителя/модель/модификацию');
+                return false;
+            }
             jQuery.post(ajaxurl, data, function(response) {
-                console.log(response);
+                alert(response);
             });
         });
         
@@ -108,6 +114,26 @@ var calculateOrder = {
         }
         jQuery.post(ajaxurl, data, function(response) {
             jQuery(selector).html(response);
+        });
+    },
+    
+    changeChasisSelect:function(){
+        let data = {
+            action: 'getPrice',
+            manufacturer: document.querySelector('#content_calc .add-price-id select[name=manufacturer_select]').value,
+            model: document.querySelector('#content_calc .add-price-id select[name=model_select]').value,
+            chasis: document.querySelector('#content_calc .add-price-id select[name=chasis_select]').value,
+        }
+        jQuery.post(ajaxurl, data, function(response) {
+            let resp = JSON.parse(response);
+            document.querySelector('.form-price input[name=oil]').value = resp.oil;
+            document.querySelector('.form-price input[name=oil_filter]').value = resp.oil_filter;
+            document.querySelector('.form-price input[name=oil_gasket]').value = resp.oil_gasket;
+            document.querySelector('.form-price input[name=air_filter]').value = resp.air_filter;
+            document.querySelector('.form-price input[name=salon_filter]').value = resp.salon_filter;
+            document.querySelector('.form-price input[name=break_fluid]').value = resp.break_fluid;
+            document.querySelector('.form-price input[name=plugs]').value = resp.plugs;
+            document.querySelector('.form-price input[name=diagnostics]').value = resp.diagnostics;
         });
     }
     
