@@ -1,0 +1,10 @@
+ul#mainImages li {
+    text-align: center;
+    width: 180px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    line-height: 20px;
+    display: inline-block;
+    float: none;
+}

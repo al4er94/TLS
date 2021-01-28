@@ -13,6 +13,7 @@ get_header(); ?>
 <?php echo do_shortcode('[smartslider3 slider="1"]'); ?>
 	<main id="tp_content" role="main">
 		<div id="primary" class="content-area">
+                                 <?php echo do_shortcode('[show_form]'); ?>
 			<?php
 	        $automobile_hub_sidebar_layout = get_theme_mod( 'automobile_hub_sidebar_post_layout','right');
 	        if($automobile_hub_sidebar_layout == 'left'){ ?>

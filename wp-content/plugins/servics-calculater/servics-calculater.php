@@ -16,8 +16,10 @@ class ServicsCalc{
     public function __construct() {
         add_filter('the_title', array(__CLASS__, 'changeTitle'));
         add_action('admin_menu', array(__CLASS__, 'anblog_bloknot_menu') );
+        // 
+        add_shortcode( 'show_form', array(__CLASS__, 'showForm') );
         
-        //
+        //Для аяксов
         add_action( 'wp_ajax_addManufacturer', array(__CLASS__, 'addManufacturer') );
         add_action( 'wp_ajax_addModel', array(__CLASS__, 'addModel') );
         add_action( 'wp_ajax_addChassis', array(__CLASS__, 'addChassis') );
@@ -199,7 +201,13 @@ class ServicsCalc{
         echo (!empty($priceTable)?json_encode($priceTable[0]):'[]');
         
         wp_die();
-        
+    }
+    
+    public static function showForm(){
+      wp_enqueue_style('style', '/wp-content/plugins/servics-calculater/include/css/style.css');
+      ob_start();
+      include( 'include/service_main_form.php' );
+      return ob_get_clean();
     }
 }
 
