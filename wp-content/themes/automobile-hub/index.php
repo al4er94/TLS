@@ -14,12 +14,49 @@ get_header(); ?>
 	<main id="tp_content" role="main">
 		<div id="primary" class="content-area">
                                  <?php echo do_shortcode('[show_form]'); ?>
+                    <hr>
 			<?php
 	        $automobile_hub_sidebar_layout = get_theme_mod( 'automobile_hub_sidebar_post_layout','right');
-?>
+?>  
 		    	<div class="row m-0">
-		          	<div class="col-lg-8 col-md-8">
-		           
+                        <div id="ourPluses" class="clients-why">
+                            <h2 class="title">Причины выбрать нас</h2>
+                            <div class="wrapper-1">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 col-xs-12">
+                                        <div class="reasons-why pl pl-1">
+                                        <p>Огромный опыт работы с Японскими автомобилями</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-xs-12">
+                                        <div class="reasons-why pl pl-2">
+                                        <p>100% контроль качества обслуживания клиентов</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-xs-12">
+                                        <div class="reasons-why pl pl-3">
+                                        <p>Мы готовим запчасти к Вашему приезду</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-xs-12">
+                                        <div class="reasons-why pl pl-4">
+                                        <p>СТО сертифицированы</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-xs-12">
+                                        <div class="reasons-why pl pl-5">
+                                        <p>Нас выбрали более 80&nbsp;000 клиентов</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-xs-12">
+                                        <div class="reasons-why pl pl-6">
+                                        <p>Гарантия на работы до 2 лет</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+		        <div class="col-lg-8 col-md-8">
 			            <?php
                                     if ( have_posts() ) : ?>
 						<?php
@@ -57,8 +94,10 @@ get_header(); ?>
                                     <?php //dynamic_sidebar('sidebar-1');?></div>-->
 		        </div>
 		</div>
+            <hr>
+              <?php echo do_shortcode('[smartslider3 slider="3"]'); ?>
 	</main>
-    <?php echo do_shortcode('[ngg src="galleries" ids="1" display="basic_imagebrowser"]'); ?>
 </div>
+<hr>
     <?php echo do_shortcode('[yamap center="60.0031,30.2779" height="22rem" controls="" zoom="13" type="yandex#map" mobiledrag="0"][yaplacemark  name="TLS" coord="59.9986,30.2683" icon="islands#dotIcon" color="#1e98ff"][/yamap]'); ?>
     <?php get_footer();

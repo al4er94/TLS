@@ -1,4 +1,4 @@
-.main_calc_form h3{
+.main_calc_form h2{
     text-align: center;
     font-size: 25px;
     font-weight: bold;
@@ -19,4 +19,28 @@ ul#mainImages li {
     line-height: 20px;
     display: inline-block;
     float: none;
+}
+
+/*Cnbkb */
+#ourPluses h2.title{
+    color: #e43315;
+    font-size: 35px;
+    text-align: left;
+    font-weight: bold;
+    position: relative;
+    padding: 0 20px;
+    margin-right: 15px;
+    overflow: hidden;
+    text-align: center;
+}
+#ourPluses .reasons-why {
+    padding-left: 140px;
+    height: 140px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#ourPluses pl{
+    float: left;
 }
