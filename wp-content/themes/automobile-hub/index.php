@@ -38,6 +38,7 @@ get_header(); ?>
                                         <p>Мы готовим запчасти к Вашему приезду</p>
                                         </div>
                                     </div>
+                                    <!--
                                     <div class="col-lg-4 col-md-6 col-xs-12">
                                         <div class="reasons-why pl pl-4">
                                         <p>СТО сертифицированы</p>
@@ -52,7 +53,7 @@ get_header(); ?>
                                         <div class="reasons-why pl pl-6">
                                         <p>Гарантия на работы до 2 лет</p>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
