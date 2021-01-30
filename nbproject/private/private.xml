@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/themes/automobile-hub/template-parts/header/site-branding.php</file>
-            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/themes/automobile-hub/style.css</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-includes/general-template.php</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/plugins/servics-calculater/servics-calculater.php</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/plugins/servics-calculater/include/css/style.css</file>
             <file>file:/C:/local/OpenServer/domains/localhost/tls/index.php</file>
-            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/themes/automobile-hub/template-parts/navigation/site-nav.php</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/plugins/servics-calculater/action.php</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/plugins/servics-calculater/include/service_main_form.php</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/plugins/servics-calculater/include/service-calculater-page.php</file>
+            <file>file:/C:/local/OpenServer/domains/localhost/tls/wp-content/themes/automobile-hub/index.php</file>
         </group>
     </open-files>
 </project-private>

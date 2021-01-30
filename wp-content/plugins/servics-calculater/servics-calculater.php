@@ -205,6 +205,8 @@ class ServicsCalc{
     
     public static function showForm(){
       wp_enqueue_style('style', '/wp-content/plugins/servics-calculater/include/css/style.css');
+      wp_enqueue_script( 'calcPublicScript', plugin_dir_url(__FILE__).'include/js/public.js');
+      wp_enqueue_script('calcPublicScript');
       ob_start();
       include( 'include/service_main_form.php' );
       return ob_get_clean();

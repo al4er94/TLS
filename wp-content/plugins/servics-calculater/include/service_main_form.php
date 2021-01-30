@@ -1,10 +1,11 @@
-<div class="wpb_wrapper">
+<div class="wpb_wrapper main_calc_form">
+    <h3>Расчитать ТО</h3>
     <ul id="mainImages">
         <li>
-            <a href="/calculate_to/"><img class="aligncenter size-full" src="http://localhost/tls/wp-content/uploads/2021/img/toyota_logo.png" alt="toyota">1</a>
+            <a href="#" data-car="toyota"><img class="aligncenter size-full" src="wp-content/plugins/servics-calculater/include/img/toyota_logo.png" alt="toyota"></a>
         </li>
         <li>
-            <a href="/calculate_to/"><img class="aligncenter size-full" src="http://localhost/tls/wp-content/uploads/2021/img/lexus.png" alt="toyota">2</a>
+            <a href="#" data-car="lexus"><img class="aligncenter size-full" src="wp-content/plugins/servics-calculater/include/img/lexus.png" alt="lexus"></a>
         </li>
     </ul>
 </div>

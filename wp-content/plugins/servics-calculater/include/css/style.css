@@ -1,3 +1,15 @@
+.main_calc_form h3{
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #e43315;
+}
+ul#mainImages{
+    display: flex;
+    justify-content: space-around;
+}
+
 ul#mainImages li {
     text-align: center;
     width: 180px;
