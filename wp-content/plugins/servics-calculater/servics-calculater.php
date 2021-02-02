@@ -18,6 +18,7 @@ class ServicsCalc{
         add_action('admin_menu', array(__CLASS__, 'anblog_bloknot_menu') );
         // 
         add_shortcode( 'show_form', array(__CLASS__, 'showForm') );
+        add_shortcode( 'show_form_in_page', array(__CLASS__, 'showFormInPage') );
         
         //Для аяксов
         add_action( 'wp_ajax_addManufacturer', array(__CLASS__, 'addManufacturer') );
@@ -204,12 +205,30 @@ class ServicsCalc{
     }
     
     public static function showForm(){
-      wp_enqueue_style('style', '/wp-content/plugins/servics-calculater/include/css/style.css');
-      wp_enqueue_script( 'calcPublicScript', plugin_dir_url(__FILE__).'include/js/public.js');
-      wp_enqueue_script('calcPublicScript');
-      ob_start();
-      include( 'include/service_main_form.php' );
-      return ob_get_clean();
+        wp_enqueue_style('style', '/wp-content/plugins/servics-calculater/include/css/style.css');
+        wp_enqueue_script( 'calcPublicScript', plugin_dir_url(__FILE__).'include/js/public.js');
+        wp_enqueue_script('calcPublicScript');
+        ob_start();
+        include( 'include/service_main_form.php' );
+        return ob_get_clean();
+    }
+    
+    public static function showFormInPage(){
+        global $wpdb;
+        $data = array();
+        $newtable = $wpdb->get_results( "SELECT * FROM `".$wpdb->prefix."calc_manufacturer`" );
+        foreach($newtable as $row){
+            $data['manufacturer'][] = [
+                'id' => $row->id,
+                'name' => $row->name
+            ];
+        }
+        wp_enqueue_style('style', '/wp-content/plugins/servics-calculater/include/css/style.css');
+        wp_enqueue_script( 'calcPublicScript', plugin_dir_url(__FILE__).'include/js/public.js');
+        wp_enqueue_script('calcPublicScript');
+        ob_start();
+        include( 'include/show_form_in_page.php' );
+        return ob_get_clean(); 
     }
 }
 
