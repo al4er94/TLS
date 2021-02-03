@@ -1,5 +1,4 @@
 <div class="service">
-    <!--<h2>Рассчитайте стоимость ТО Вашего автомобиля<br><b>всего в 3 клика</b></h2>-->
     <div class="filters vc_row vc_cta3 vc_cta3-style-flat vc_cta3-shape-rounded">
         <form>
             <div class="vc_col-sm-4">
@@ -39,4 +38,5 @@
             </div>
         </form>
     </div>
+    
 </div>    

@@ -224,8 +224,15 @@ class ServicsCalc{
             ];
         }
         wp_enqueue_style('style', '/wp-content/plugins/servics-calculater/include/css/style.css');
-        wp_enqueue_script( 'calcPublicScript', plugin_dir_url(__FILE__).'include/js/public.js');
+        wp_enqueue_script('calcPublicScript', plugin_dir_url(__FILE__).'include/js/public.js');
         wp_enqueue_script('calcPublicScript');
+        wp_enqueue_script('calcscript', plugin_dir_url(__FILE__).'include/js/script.js');
+        wp_enqueue_script('calcscript');
+        wp_localize_script( 'calcscript', 'ajaxurl', 
+            array(
+		'url' => admin_url('admin-ajax.php')
+            )
+	); 
         ob_start();
         include( 'include/show_form_in_page.php' );
         return ob_get_clean(); 
