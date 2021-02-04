@@ -40,7 +40,15 @@ var calcPublicScript = {
         }
         jQuery.post(ajaxurl, data, function(response) {
             let resp = JSON.parse(response);
-            console.log(resp);
+            if(resp.length !== 0){
+                console.log(resp);
+                for (let key in resp) {
+                    let tr = document.querySelector('.service .main-table #'+key);
+                    let tdArr = jQuery(tr).find('td');
+                    jQuery(tdArr[0]).html(key);
+                    jQuery(tdArr[1]).html(resp[key]);
+                }
+            }
         });
     }
 }

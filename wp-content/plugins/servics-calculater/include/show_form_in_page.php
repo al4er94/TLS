@@ -33,10 +33,71 @@
                                 <option value =""></option>
                             </select>
                             </div>
-                        </div>  
+                        </div> 
                   </div>    
             </div>
         </form>
     </div>
-    
-</div>    
+    <div class="row">
+        <table class="table main-table">
+        <thead>
+            <tr>
+                <th>ВИД РАБОТЫ</th>
+                <th>СТОИМОСТЬ РАБОТЫ</th>
+                <th>НЕОБХОДИМЫЕ МАТЕРИАЛЫ</th>
+                <th>СТОИМОСТЬ МАТЕРИАЛОВ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="oil">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="oil_filter">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="oil_gasket">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="salon_filter">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="air_filter">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="break_fluid">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="plugs">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="diagnostics">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div> 
