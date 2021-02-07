@@ -32,7 +32,7 @@ get_header(); ?>
 		        <div class="clearfix"></div>
 		    <?php }else if($automobile_hub_sidebar_layout == 'right'){ ?>
 		        <div class="row">
-		          	<div class="col-md-8 col-sm-8">
+		          	<div class="col-md-12 col-sm-12">
 			            <?php while ( have_posts() ) : the_post();
 
 							get_template_part( 'template-parts/page/content', 'page' );
@@ -45,7 +45,7 @@ get_header(); ?>
 							endwhile; // End of the loop.
 						?>
 		          	</div>
-		          	<div class="col-md-4 col-sm-4" id="theme-sidebar"><?php dynamic_sidebar('sidebar-1');?></div>
+		          	<!--<div class="col-md-4 col-sm-4" id="theme-sidebar"><?php // dynamic_sidebar('sidebar-1');?></div> -->
 		        </div>
 		    <?php }else if($automobile_hub_sidebar_layout == 'full'){ ?>
 		        <div class="full">

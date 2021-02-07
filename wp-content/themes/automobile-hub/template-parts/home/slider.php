@@ -8,7 +8,7 @@
 
 ?>
 
-<?php if( get_theme_mod( 'automobile_hub_slider_arrows') != '') { ?>
+<?php //if( get_theme_mod( 'automobile_hub_slider_arrows') != '') { ?>
 
 <section id="slider">
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"> 
@@ -60,4 +60,4 @@
   <div class="clearfix"></div>
 </section> 
 
-<?php } ?>
+<?php //} ?>

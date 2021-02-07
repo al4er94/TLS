@@ -126,14 +126,27 @@ var calculateOrder = {
         }
         jQuery.post(ajaxurl, data, function(response) {
             let resp = JSON.parse(response);
-            document.querySelector('.form-price input[name=oil]').value = resp.oil;
-            document.querySelector('.form-price input[name=oil_filter]').value = resp.oil_filter;
-            document.querySelector('.form-price input[name=oil_gasket]').value = resp.oil_gasket;
-            document.querySelector('.form-price input[name=air_filter]').value = resp.air_filter;
-            document.querySelector('.form-price input[name=salon_filter]').value = resp.salon_filter;
-            document.querySelector('.form-price input[name=break_fluid]').value = resp.break_fluid;
-            document.querySelector('.form-price input[name=plugs]').value = resp.plugs;
-            document.querySelector('.form-price input[name=diagnostics]').value = resp.diagnostics;
+            console.log(resp);
+            if(resp.priceTable.length == 0){
+                document.querySelector('.form-price input[name=oil]').value = 0;
+                document.querySelector('.form-price input[name=oil_filter]').value = 0;
+                document.querySelector('.form-price input[name=oil_gasket]').value = 0;
+                document.querySelector('.form-price input[name=air_filter]').value = 0;
+                document.querySelector('.form-price input[name=salon_filter]').value = 0;
+                document.querySelector('.form-price input[name=break_fluid]').value = 0;
+                document.querySelector('.form-price input[name=plugs]').value = 0;
+                document.querySelector('.form-price input[name=diagnostics]').value = 0;
+                return true;
+            }
+            
+            document.querySelector('.form-price input[name=oil]').value = resp.priceTable.oil;
+            document.querySelector('.form-price input[name=oil_filter]').value = resp.priceTable.oil_filter;
+            document.querySelector('.form-price input[name=oil_gasket]').value = resp.priceTable.oil_gasket;
+            document.querySelector('.form-price input[name=air_filter]').value = resp.priceTable.air_filter;
+            document.querySelector('.form-price input[name=salon_filter]').value = resp.priceTable.salon_filter;
+            document.querySelector('.form-price input[name=break_fluid]').value = resp.priceTable.break_fluid;
+            document.querySelector('.form-price input[name=plugs]').value = resp.priceTable.plugs;
+            document.querySelector('.form-price input[name=diagnostics]').value = resp.priceTable.diagnostics;
         });
     }
     

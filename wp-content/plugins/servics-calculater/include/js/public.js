@@ -20,6 +20,8 @@ var calcPublicScript = {
            calcPublicScript.getPrice();
         });
         
+        calcPublicScript.setManufacturer();
+        
     },
     getCarPage:function(link){
        let car = jQuery(link).data('car');
@@ -40,16 +42,42 @@ var calcPublicScript = {
         }
         jQuery.post(ajaxurl, data, function(response) {
             let resp = JSON.parse(response);
-            if(resp.length !== 0){
-                console.log(resp);
-                for (let key in resp) {
+            console.log(resp);
+            if(resp.priceTable.length !== 0){
+                for (let key in resp.priceTable) {
                     let tr = document.querySelector('.service .main-table #'+key);
                     let tdArr = jQuery(tr).find('td');
                     jQuery(tdArr[0]).html(key);
-                    jQuery(tdArr[1]).html(resp[key]);
+                    jQuery(tdArr[1]).html(resp.priceTable[key]);
+                }
+            }
+            if(resp.priceTableParts.length !== 0){
+                for (let key in resp.priceTableParts) {
+                    let selector = key.replace('_price', '');
+                    let tr = document.querySelector('.service .main-table #'+selector);
+                    let tdArr = jQuery(tr).find('td');
+                    if(key == 'oil_price'){
+                        jQuery(tdArr[2]).html('Масло Toyota (объем '+resp.priceTableParts.oil_volume+'л.)');
+                        jQuery(tdArr[3]).html(resp.priceTableParts[key]); 
+                        continue;
+                    }
+                    jQuery(tdArr[2]).html(key);
+                    jQuery(tdArr[3]).html(resp.priceTableParts[key]);
                 }
             }
         });
+    },
+    
+    setManufacturer:function(){
+        let manufacturer = localStorage.getItem('manufacturer');
+        if(manufacturer){
+             document.querySelector('.service form select[name=manufacturer_select]').value = manufacturer;
+             calculateOrder.changeManufacturerSelect(manufacturer, '.service select[name=model_select]');
+        }
+    },
+    
+    renameKeyPrice:function(key){
+        
     }
 }
 

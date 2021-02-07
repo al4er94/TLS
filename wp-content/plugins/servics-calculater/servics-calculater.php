@@ -20,7 +20,7 @@ class ServicsCalc{
         add_shortcode( 'show_form', array(__CLASS__, 'showForm') );
         add_shortcode( 'show_form_in_page', array(__CLASS__, 'showFormInPage') );
         
-        //Для аяксов
+        //Для аяксов amin
         add_action( 'wp_ajax_addManufacturer', array(__CLASS__, 'addManufacturer') );
         add_action( 'wp_ajax_addModel', array(__CLASS__, 'addModel') );
         add_action( 'wp_ajax_addChassis', array(__CLASS__, 'addChassis') );
@@ -28,7 +28,13 @@ class ServicsCalc{
         add_action( 'wp_ajax_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
         add_action( 'wp_ajax_addPriceInBd', array(__CLASS__, 'addPriceInBd'));
         add_action( 'wp_ajax_getPrice', array(__CLASS__, 'getPrice'));
-        self::updateBD();
+        
+        add_action( 'wp_ajax_nopriv_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
+        add_action( 'wp_ajax_nopriv_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
+        add_action( 'wp_ajax_nopriv_getPrice', array(__CLASS__, 'getPrice'));
+        
+        register_activation_hook(__FILE__, array(__CLASS__, 'updateBD'));
+        //self::updateBD();
     }
     
     public function changeTitle($title){
@@ -63,7 +69,23 @@ class ServicsCalc{
                 . "PRIMARY KEY (`id`)) ENGINE = InnoDB;";
         $wpdb->query($sql);
         
-        $sql = "CREATE TABLE `tls`.`wp_calc_price` ( `id` INT NOT NULL AUTO_INCREMENT , `price_id` VARCHAR(256) NOT NULL , `oil` VARCHAR(256) NOT NULL DEFAULT '0' , `oil_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `oil_gasket` VARCHAR(256) NOT NULL DEFAULT '0' , `air_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `salon_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `break_fluid` VARCHAR(256) NOT NULL DEFAULT '0' , `plugs` VARCHAR(256) NOT NULL DEFAULT '0' , `diagnostics` VARCHAR(256) NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+        $sql = "CREATE TABLE IF NOT EXISTS `".PREFIX."calc_price` ( `id` INT NOT NULL AUTO_INCREMENT , `price_id` VARCHAR(256) NOT NULL , `oil` VARCHAR(256) NOT NULL DEFAULT '0' , `oil_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `oil_gasket` VARCHAR(256) NOT NULL DEFAULT '0' , `air_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `salon_filter` VARCHAR(256) NOT NULL DEFAULT '0' , `break_fluid` VARCHAR(256) NOT NULL DEFAULT '0' , `plugs` VARCHAR(256) NOT NULL DEFAULT '0' , `diagnostics` VARCHAR(256) NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+        $wpdb->query($sql);
+        
+        $sql = "CREATE TABLE IF NOT EXISTS `".PREFIX."calc_price_parts` ("
+                . "`id` INT NOT NULL AUTO_INCREMENT ,"
+                . "`price_id` INT NOT NULL ,"
+                . "`oil_price` VARCHAR(256) NOT NULL ,"
+                . "`oil_volume` VARCHAR(256) NOT NULL , "
+                . "`oil_filter_price` VARCHAR(256) NOT NULL , "
+                . "`oil_gasket_price` VARCHAR(256) NOT NULL , "
+                . "`air_filter_price` VARCHAR(256) NOT NULL , "
+                . "`salon_filter_price` VARCHAR(256) NOT NULL ,"
+                . "`break_fluid_price` VARCHAR(256) NOT NULL , "
+                . "`pads_front_price` VARCHAR(256) NOT NULL , "
+                . "`pads_rear_price` VARCHAR(256) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+        $wpdb->query($sql);
+  
     }
     
     public static function addManufacturer(){
@@ -191,7 +213,7 @@ class ServicsCalc{
     
     public static function getPrice(){
         global $wpdb;
-        
+        $data = array();
         $priceTable = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."calc_price` "
                 ." LEFT JOIN `".$wpdb->prefix."calc_price_id` "
                 . " ON `".$wpdb->prefix."calc_price`.`price_id` = `".$wpdb->prefix."calc_price_id`.`id`"
@@ -199,7 +221,16 @@ class ServicsCalc{
                 . "`model_id`=".intval($_POST['model'])." AND"
                 . "`chassis_id`=".intval($_POST['chasis']));
         
-        echo (!empty($priceTable)?json_encode($priceTable[0]):'[]');
+        $priceTableParts = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."calc_price_parts` "
+                                ." LEFT JOIN `".$wpdb->prefix."calc_price_id` "
+                                . " ON `".$wpdb->prefix."calc_price_parts`.`price_id` = `".$wpdb->prefix."calc_price_id`.`id`"
+                                . "WHERE `manufacture_id`=".intval($_POST['manufacturer'])." AND"
+                                . "`model_id`=".intval($_POST['model'])." AND"
+                                . "`chassis_id`=".intval($_POST['chasis']));
+        
+        $data['priceTable'] = !empty($priceTable)?$priceTable[0]:array();
+        $data['priceTableParts'] = !empty($priceTableParts)?$priceTableParts[0]:array();
+        echo json_encode($data);
         
         wp_die();
     }
