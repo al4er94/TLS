@@ -47,7 +47,7 @@ var calcPublicScript = {
                 for (let key in resp.priceTable) {
                     let tr = document.querySelector('.service .main-table #'+key);
                     let tdArr = jQuery(tr).find('td');
-                    jQuery(tdArr[0]).html(key);
+                    jQuery(tdArr[0]).html(calcPublicScript.renameKeyPrice(key));
                     jQuery(tdArr[1]).html(resp.priceTable[key]);
                 }
             }
@@ -77,7 +77,25 @@ var calcPublicScript = {
     },
     
     renameKeyPrice:function(key){
-        
+        switch(key) {
+            case 'oil':key = 'Замена масла';
+                break;
+            case 'oil_filter':key = 'Замена масляного фильтра';
+                break;  
+            case 'oil_gasket':key = 'Замена прокладки под сливное отверстие';
+                break;
+            case 'salon_filter':key = 'Замена салонного фильтра';
+                break;  
+            case 'air_filter':key = 'Замена воздушного';
+                break;
+            case 'break_fluid':key = 'Замена тормозной жидкости';
+                break;  
+            case 'plugs': key = 'Замена свечей зажигания';
+                break;
+            case 'diagnostics':key = 'Диагностика';
+                break;             
+        }
+        return key;
     }
 }
 
