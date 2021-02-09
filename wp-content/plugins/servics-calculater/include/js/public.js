@@ -47,8 +47,9 @@ var calcPublicScript = {
                 for (let key in resp.priceTable) {
                     let tr = document.querySelector('.service .main-table #'+key);
                     let tdArr = jQuery(tr).find('td');
-                    jQuery(tdArr[0]).html(calcPublicScript.renameKeyPrice(key));
-                    jQuery(tdArr[1]).html(resp.priceTable[key]);
+                    jQuery(tdArr[1]).html(calcPublicScript.renameKeyPrice(key));
+                    jQuery(tdArr[2]).html(resp.priceTable[key]);
+                    jQuery(tdArr[0]).show();
                 }
             }
             if(resp.priceTableParts.length !== 0){
@@ -57,12 +58,14 @@ var calcPublicScript = {
                     let tr = document.querySelector('.service .main-table #'+selector);
                     let tdArr = jQuery(tr).find('td');
                     if(key == 'oil_price'){
-                        jQuery(tdArr[2]).html('Масло Toyota (объем '+resp.priceTableParts.oil_volume+'л.)');
-                        jQuery(tdArr[3]).html(resp.priceTableParts[key]); 
+                        jQuery(tdArr[4]).html('Масло Toyota (объем '+resp.priceTableParts.oil_volume+'л.)');
+                        jQuery(tdArr[5]).html(resp.priceTableParts[key]); 
+                        jQuery(tdArr[3]).show();
                         continue;
                     }
-                    jQuery(tdArr[2]).html(key);
-                    jQuery(tdArr[3]).html(resp.priceTableParts[key]);
+                    jQuery(tdArr[4]).html(key);
+                    jQuery(tdArr[5]).html(resp.priceTableParts[key]);
+                    jQuery(tdArr[3]).show();
                 }
             }
         });

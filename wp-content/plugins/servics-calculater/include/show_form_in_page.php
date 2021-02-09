@@ -42,58 +42,76 @@
         <table class="table main-table">
         <thead>
             <tr>
+                <th></th>
                 <th>ВИД РАБОТЫ</th>
                 <th>СТОИМОСТЬ РАБОТЫ</th>
+                <th></th>
                 <th>НЕОБХОДИМЫЕ МАТЕРИАЛЫ</th>
                 <th>СТОИМОСТЬ МАТЕРИАЛОВ</th>
             </tr>
         </thead>
         <tbody>
             <tr id="oil">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="oil_filter">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="oil_gasket">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="salon_filter">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="air_filter">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="break_fluid">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="plugs">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr id="diagnostics">
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
+                <td style = "display: none"><input type="checkbox"></td>
                 <td></td>
                 <td></td>
             </tr>

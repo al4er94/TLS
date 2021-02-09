@@ -222,11 +222,11 @@ class ServicsCalc{
                 . "`chassis_id`=".intval($_POST['chasis']));
         
         $priceTableParts = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."calc_price_parts` "
-                                ." LEFT JOIN `".$wpdb->prefix."calc_price_id` "
-                                . " ON `".$wpdb->prefix."calc_price_parts`.`price_id` = `".$wpdb->prefix."calc_price_id`.`id`"
-                                . "WHERE `manufacture_id`=".intval($_POST['manufacturer'])." AND"
-                                . "`model_id`=".intval($_POST['model'])." AND"
-                                . "`chassis_id`=".intval($_POST['chasis']));
+                ." LEFT JOIN `".$wpdb->prefix."calc_price_id` "
+                . " ON `".$wpdb->prefix."calc_price_parts`.`price_id` = `".$wpdb->prefix."calc_price_id`.`id`"
+                . "WHERE `manufacture_id`=".intval($_POST['manufacturer'])." AND"
+                . "`model_id`=".intval($_POST['model'])." AND"
+                . "`chassis_id`=".intval($_POST['chasis']));
         
         $data['priceTable'] = !empty($priceTable)?$priceTable[0]:array();
         $data['priceTableParts'] = !empty($priceTableParts)?$priceTableParts[0]:array();
