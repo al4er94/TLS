@@ -50,6 +50,7 @@ var calcPublicScript = {
                     jQuery(tdArr[1]).html(calcPublicScript.renameKeyPrice(key));
                     jQuery(tdArr[2]).html(resp.priceTable[key]);
                     jQuery(tdArr[0]).show();
+                    jQuery(tdArr[0]).find('input').prop('checked', true);
                 }
             }
             if(resp.priceTableParts.length !== 0){
@@ -61,11 +62,13 @@ var calcPublicScript = {
                         jQuery(tdArr[4]).html('Масло Toyota (объем '+resp.priceTableParts.oil_volume+'л.)');
                         jQuery(tdArr[5]).html(resp.priceTableParts[key]); 
                         jQuery(tdArr[3]).show();
+                        jQuery(tdArr[3]).find('input').prop('checked', true);
                         continue;
                     }
                     jQuery(tdArr[4]).html(key);
                     jQuery(tdArr[5]).html(resp.priceTableParts[key]);
                     jQuery(tdArr[3]).show();
+                    jQuery(tdArr[3]).find('input').prop('checked', true);
                 }
             }
         });

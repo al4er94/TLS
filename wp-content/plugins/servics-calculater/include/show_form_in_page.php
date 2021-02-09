@@ -118,4 +118,7 @@
         </tbody>
         </table>
     </div>
+    <div class="row">
+        <button class="button button-primary submitOrder">Отправить</button>
+    </div>
 </div> 
