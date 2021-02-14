@@ -20,6 +20,11 @@ var calcPublicScript = {
            calcPublicScript.getPrice();
         });
         
+        //Отправка данных о сервисе
+        jQuery('.service .submitOrder').on('click', function(){
+           calcPublicScript.submitOrder();
+        });
+                
         calcPublicScript.setManufacturer();
         
     },
@@ -82,6 +87,82 @@ var calcPublicScript = {
         }
     },
     
+    submitOrder:function(){
+        let tr = document.querySelectorAll('.service .main-table tbody tr');
+        //console.log(tr);
+        var data = {};
+        tr.forEach(function(item, i){
+            let id = item.id;
+            //console.log(id);
+            let selectArr = item.querySelectorAll('input');
+            let tdArr = item.querySelectorAll('td'); 
+            //console.log(tdArr);
+            let price = 'false';
+            let priceProde = 'false';
+            if(jQuery(selectArr[0]).prop('checked') == true){  
+                price = jQuery(tdArr[2]).html();
+            }
+            if(jQuery(selectArr[1]).prop('checked') == true){  
+                priceProde = jQuery(tdArr[5]).html();
+            }
+            let arr = {
+                price: price,
+                priceProde: priceProde
+            }
+            data[id] = arr;
+        });
+        calcPublicScript.printCatr(data);
+    },
+    
+    showModal:function(){
+        //event.preventDefault();
+          jQuery('#myOverlay').fadeIn(297,	function(){
+            jQuery('#myModal') 
+            .css('display', 'block')
+            .animate({opacity: 1}, 198);
+            
+          });
+    },
+    
+    printCatr:function(data){
+        let nonEmpty = false;
+        let html = '';
+        for (let key in data) {
+            let price = '';
+            let priceProde = '';
+            if(data[key].price != 'false'){
+                nonEmpty = true;
+                html += '<tr>';
+                html += '<td>'+calcPublicScript.renameKeyPrice(key)+'</td>';
+                html += '<td>'+data[key].price+'</td>';
+                html += '<td class="removeRow">X</td>';
+                html += '</tr>';
+            }
+            if(data[key].priceProde != 'false'){
+                nonEmpty = true;
+                html += '<tr>';
+                html += '<td>'+key+'</td>';
+                html += '<td>'+data[key].priceProde+'</td>';
+                html += '<td class="removeRow">X</td>';
+                html += '</tr>';
+            }
+        }
+        jQuery('#modle-content table.price-cart-table tbody').html(html);
+        //Удаление строчки из корзины
+        jQuery('#modle-content .removeRow').on('click', function(){
+           calcPublicScript.removeRow(jQuery(this));
+        });
+        if(nonEmpty){
+            calcPublicScript.showModal();
+        }
+    },  
+    
+    removeRow:function(item){
+        console.log(item);
+        console.log('click')
+        jQuery(item).parent().remove();
+    },
+    
     renameKeyPrice:function(key){
         switch(key) {
             case 'oil':key = 'Замена масла';
@@ -109,6 +190,14 @@ jQuery(function($){
     $(document).ready(function(){
         calcPublicScript.init();
     });
+    
+    $(document).ready(function() {
+
+        $('#myModal__close, #myOverlay').click( function(){
+          $('#myModal').animate({opacity: 0}, 198, function(){
+            $(this).css('display', 'none');
+            $('#myOverlay').fadeOut(297);
+          });
+        });
+  });
 });
-
-

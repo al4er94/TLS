@@ -135,6 +135,7 @@ class ServicsCalc{
         global $wpdb;
         $newtable = $wpdb->get_results( "SELECT * FROM `".$wpdb->prefix."calc_model` WHERE `manufacture_id`=".intval($_POST['manufacturer']) );
         $html = '';
+        $html .= '<option value="0">Выберите модель</option>';
         foreach ($newtable as $item){
             $html .= '<option value="'.$item->id.'">'.$item->name.'</option>';
         }
@@ -146,6 +147,7 @@ class ServicsCalc{
         global $wpdb;
         $newtable = $wpdb->get_results( "SELECT * FROM `".$wpdb->prefix."calc_chassis` WHERE `model_id`=".intval($_POST['model']) );
         $html = '';
+        $html .= '<option value="0">Выберите комплектацию</option>';
         foreach ($newtable as $item){
             $html .= '<option value="'.$item->id.'">'.$item->name.'</option>';
         }

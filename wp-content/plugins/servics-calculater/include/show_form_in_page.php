@@ -121,4 +121,22 @@
     <div class="row">
         <button class="button button-primary submitOrder">Отправить</button>
     </div>
+    <div id="myModal">
+        <div id = "modle-content">
+            <table class="table new-table price-cart-table">
+                <thead>
+                    <tr>
+                        <th>test1</th>
+                        <th>test2</th>
+                        <th>test3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+      <span id="myModal__close" class="close">ₓ</span>
+    </div>
+    <div id="myOverlay"></div>
 </div> 
