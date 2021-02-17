@@ -1,4 +1,6 @@
 var calcPublicScript = {
+    data:{},
+    fullPrice:'',
     init:function(){      
         //Добавляем модификацию
         jQuery('.main_calc_form ul#mainImages a').on('click', function(){
@@ -23,6 +25,11 @@ var calcPublicScript = {
         //Отправка данных о сервисе
         jQuery('.service .submitOrder').on('click', function(){
            calcPublicScript.submitOrder();
+        });
+        
+        //Отправка корзины
+        jQuery('.service .submitOrder-cart').on('click', function(){
+           calcPublicScript.submitOrderCart();
         });
                 
         calcPublicScript.setManufacturer();
@@ -55,7 +62,7 @@ var calcPublicScript = {
                     jQuery(tdArr[1]).html(calcPublicScript.renameKeyPrice(key));
                     jQuery(tdArr[2]).html(resp.priceTable[key]);
                     jQuery(tdArr[0]).show();
-                    jQuery(tdArr[0]).find('input').prop('checked', true);
+                    //jQuery(tdArr[0]).find('input').prop('checked', true);
                 }
             }
             if(resp.priceTableParts.length !== 0){
@@ -67,13 +74,13 @@ var calcPublicScript = {
                         jQuery(tdArr[4]).html('Масло Toyota (объем '+resp.priceTableParts.oil_volume+'л.)');
                         jQuery(tdArr[5]).html(resp.priceTableParts[key]); 
                         jQuery(tdArr[3]).show();
-                        jQuery(tdArr[3]).find('input').prop('checked', true);
+                        //jQuery(tdArr[3]).find('input').prop('checked', true);
                         continue;
                     }
                     jQuery(tdArr[4]).html(key);
                     jQuery(tdArr[5]).html(resp.priceTableParts[key]);
                     jQuery(tdArr[3]).show();
-                    jQuery(tdArr[3]).find('input').prop('checked', true);
+                    //jQuery(tdArr[3]).find('input').prop('checked', true);
                 }
             }
         });
@@ -111,7 +118,23 @@ var calcPublicScript = {
             }
             data[id] = arr;
         });
+        calcPublicScript.data = data;
         calcPublicScript.printCatr(data);
+    },
+    
+    submitOrderCart:function(){
+        let phone = document.querySelector('.service .form-contact-div input[name="phone"]').value;
+        let name = document.querySelector('.service .form-contact-div input[name="name"]').value;
+        let data = {
+            action: 'saveCart',
+            cart: calcPublicScript.data,
+            phone: phone,
+            name: name
+        }
+        jQuery.post(ajaxurl, data, function(response) {
+           console.log(response);
+        });
+        console.log(name, phone);
     },
     
     showModal:function(){
@@ -128,14 +151,15 @@ var calcPublicScript = {
         let nonEmpty = false;
         let html = '';
         for (let key in data) {
-            let price = '';
-            let priceProde = '';
+            //let price = '';
+            //let priceProde = '';
+            
             if(data[key].price != 'false'){
                 nonEmpty = true;
                 html += '<tr>';
                 html += '<td>'+calcPublicScript.renameKeyPrice(key)+'</td>';
                 html += '<td>'+data[key].price+'</td>';
-                html += '<td class="removeRow">X</td>';
+                html += '<td class="removeRow" data-key="'+key+'" data-price="price">X</td>';
                 html += '</tr>';
             }
             if(data[key].priceProde != 'false'){
@@ -143,7 +167,7 @@ var calcPublicScript = {
                 html += '<tr>';
                 html += '<td>'+key+'</td>';
                 html += '<td>'+data[key].priceProde+'</td>';
-                html += '<td class="removeRow">X</td>';
+                html += '<td class="removeRow" data-key="'+key+'" data-price="priceProde">X</td>';
                 html += '</tr>';
             }
         }
@@ -158,8 +182,9 @@ var calcPublicScript = {
     },  
     
     removeRow:function(item){
-        console.log(item);
-        console.log('click')
+        let key = jQuery(item).data('key');
+        let price = jQuery(item).data('price');
+        calcPublicScript.data[key][price] = 'false';
         jQuery(item).parent().remove();
     },
     

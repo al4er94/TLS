@@ -28,10 +28,11 @@ class ServicsCalc{
         add_action( 'wp_ajax_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
         add_action( 'wp_ajax_addPriceInBd', array(__CLASS__, 'addPriceInBd'));
         add_action( 'wp_ajax_getPrice', array(__CLASS__, 'getPrice'));
-        
+        //Для аяксов 
         add_action( 'wp_ajax_nopriv_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
         add_action( 'wp_ajax_nopriv_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
         add_action( 'wp_ajax_nopriv_getPrice', array(__CLASS__, 'getPrice'));
+        add_action( 'wp_ajax_nopriv_saveCart', array(__CLASS__, 'saveCart'));
         
         register_activation_hook(__FILE__, array(__CLASS__, 'updateBD'));
         //self::updateBD();
@@ -269,6 +270,11 @@ class ServicsCalc{
         ob_start();
         include( 'include/show_form_in_page.php' );
         return ob_get_clean(); 
+    }
+    
+    public static function saveCart(){
+        var_dump($_POST);
+        wp_die();
     }
 }
 

@@ -93,8 +93,12 @@ ul#mainImages li {
 }
 
 #modle-content{
-    height: 100%;
-    overflow: scroll;
+    height: 85%;
+    overflow-y: scroll;
+}
+.form-contact-div{
+    display: flex;
+    
 }
 
 #modle-content .removeRow{

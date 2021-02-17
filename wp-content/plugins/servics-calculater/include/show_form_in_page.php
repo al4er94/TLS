@@ -136,6 +136,13 @@
                 </tbody>
             </table>
         </div>
+        <div class="form-contact-div">
+            <lable>Имя: </lable>
+            <input type="text" name='name'>
+            <lable>Телефон: </lable>
+            <input type="text" name='phone'>
+        </div>
+        <button class="button submitOrder-cart">Отправить</button>
       <span id="myModal__close" class="close">ₓ</span>
     </div>
     <div id="myOverlay"></div>
