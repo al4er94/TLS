@@ -273,7 +273,32 @@ class ServicsCalc{
     }
     
     public static function saveCart(){
-        var_dump($_POST);
+        global $wpdb;
+        $cart = $_POST['cart'];
+        foreach ($cart as $key => &$val){
+            if($val['price']=='false' && $val['priceProde']=='false'){
+                unset($cart[$key]);
+                continue;
+            }
+            if($val['price']=='false'){
+                unset($val['price']);
+            }
+            if($val['priceProde']=='false'){
+                unset($val['priceProde']);
+            }
+        }
+        $cart = json_encode($cart);
+        $phone = $_POST['phone'];
+        $name = $_POST['name'];
+        $table = $wpdb->prefix.'calc_cart';
+        $data = [
+            'cart' => $cart,
+            'name' => $name,
+            'phone' => $phone
+        ];
+        $wpdb->insert($table, $data);
+        $my_id = $wpdb->insert_id;
+        echo $my_id;
         wp_die();
     }
 }
