@@ -57,6 +57,42 @@ get_header(); ?>
                                 </div>
                             </div>
                         </div>
+                  <div class="row clearfix">
+              <div class="col-md-4 col-sm-12 col-xs-12 text-content">
+                  <img alt="Image" src="wp-content/themes/automobile-hub/assets/images/1_(1).jpg" style="max-width: 100%">
+              </div>
+              <div class="col-md-8 col-sm-12 col-xs-12">
+                  <div class="title-box">
+                      <h3>Обслуживание корпоративных заказчиков</h3>
+                  </div>
+                  <div class="content content-box">
+                      <p>В TLS разработаны специальные условия для обслуживания корпоративных клиентов. Мы успешно взаимодействуем с автопарками и предприятиями, на балансе которых есть транспортные средства.&nbsp;</p>
+                <ul style="list-style-type: disc;">
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 90%;">&nbsp;&nbsp; Комплексное и постоянное обслуживание – это выгодные контрактные условия.</span></li>
+                <li><span style="font-size: 90%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; С вами будет работать персональный куратор.</span></li>
+                <li><span style="font-size: 90%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Он решит все вопросы, проследит за соблюдением сроков ТО и ремонта, обеспечит полноценные, бесплатные консультации профильных специалистов на протяжении всего периода взаимодействия.&nbsp;</span></li>
+                </ul>
+                <p>Вам остается только позвонить или написать нам, чтобы предварительно обсудить условия сотрудничества с нашим автосервисом.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="title-box">
+                    <h3>Мы сотрудничаем с официальными дилерами и производителями напрямую</h3>
+                </div>
+                <div class="content content-box">
+                    <p>Вам не придется тратить время и силы на поиск запчастей для ремонта автомобиля.&nbsp;</p>
+              <ul>
+              <li><span style="font-size: 90%;">Предлагаем нашим клиентам качественные комплектующие, узлы и агрегаты в сборе, детали, аксессуары по минимально возможным ценам, с привлекательными скидками.</span></li>
+              </ul>
+        <p>Установим дополнительное оборудование в соответствии с допусками и регламентами автобренда.&nbsp;Для начала взаимодействия достаточно отправить <a href='<?php echo WP_HOME.'service-registration/' ?>'>заявку на обслуживание</a></p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 text-content">
+                <img alt="Мы сотрудничаем с официальными дилерами и производителями напрямую" src="wp-content/themes/automobile-hub/assets/images/1_(2).jpg" style="max-width: 100%">
+            </div>
+          </div>
 		        <div class="col-lg-8 col-md-8">
 			            <?php
                                     if ( have_posts() ) : ?>

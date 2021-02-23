@@ -28,6 +28,7 @@ class ServicsCalc{
         add_action( 'wp_ajax_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
         add_action( 'wp_ajax_addPriceInBd', array(__CLASS__, 'addPriceInBd'));
         add_action( 'wp_ajax_getPrice', array(__CLASS__, 'getPrice'));
+        add_action( 'wp_ajax_saveCart', array(__CLASS__, 'saveCart'));
         //Для аяксов 
         add_action( 'wp_ajax_nopriv_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
         add_action( 'wp_ajax_nopriv_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
@@ -298,8 +299,13 @@ class ServicsCalc{
         ];
         $wpdb->insert($table, $data);
         $my_id = $wpdb->insert_id;
+        //sself::sendMail();
         echo $my_id;
         wp_die();
+    }
+    
+    public static function sendMail(){
+      wp_mail( 'shevch19944@gmail.com', 'TEst', 'Test_mes', 'webmaster@example.com' );
     }
 }
 

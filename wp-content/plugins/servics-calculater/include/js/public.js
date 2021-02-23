@@ -61,7 +61,7 @@ var calcPublicScript = {
                     let tdArr = jQuery(tr).find('td');
                     jQuery(tdArr[1]).html(calcPublicScript.renameKeyPrice(key));
                     jQuery(tdArr[2]).html(resp.priceTable[key]);
-                    jQuery(tdArr[0]).show();
+                    jQuery(tdArr[0]).find('input').show();
                     //jQuery(tdArr[0]).find('input').prop('checked', true);
                 }
             }
@@ -73,13 +73,13 @@ var calcPublicScript = {
                     if(key == 'oil_price'){
                         jQuery(tdArr[4]).html('Масло Toyota (объем '+resp.priceTableParts.oil_volume+'л.)');
                         jQuery(tdArr[5]).html(resp.priceTableParts[key]); 
-                        jQuery(tdArr[3]).show();
+                        jQuery(tdArr[3]).find('input').show();
                         //jQuery(tdArr[3]).find('input').prop('checked', true);
                         continue;
                     }
-                    jQuery(tdArr[4]).html(key);
+                    jQuery(tdArr[4]).html(calcPublicScript.renameKeyPrice(key));
                     jQuery(tdArr[5]).html(resp.priceTableParts[key]);
-                    jQuery(tdArr[3]).show();
+                    jQuery(tdArr[3]).find('input').show();
                     //jQuery(tdArr[3]).find('input').prop('checked', true);
                 }
             }
@@ -132,9 +132,8 @@ var calcPublicScript = {
             name: name
         }
         jQuery.post(ajaxurl, data, function(response) {
-           console.log(response);
+            if(!alert('Ваша заявка успешно отправлена! В скором времени с вами свяжется менеджер!')){window.location.reload();}
         });
-        console.log(name, phone);
     },
     
     showModal:function(){
@@ -205,7 +204,20 @@ var calcPublicScript = {
             case 'plugs': key = 'Замена свечей зажигания';
                 break;
             case 'diagnostics':key = 'Диагностика';
-                break;             
+                break;  
+            // Переименование запчастей
+            case 'oil_filter_price':key = 'Масляный фильтр(Toyota)';
+                break;  
+            case 'oil_gasket_price':key = 'Прокладка под сливное отверстие(Toyota)';
+                break;
+            case 'salon_filter_price':key = 'Фильтр салона(Filtron)';
+                break;  
+            case 'air_filter_price': key = 'Воздушный фильтр(Toyota)';
+                break;
+            case 'break_fluid_price':key = 'Тормозная жидкость(Toyota)';
+                break
+            case 'plugs_price':key = 'Свечи(Toyota)';
+                break
         }
         return key;
     }
@@ -225,4 +237,5 @@ jQuery(function($){
           });
         });
   });
+  
 });
