@@ -59,13 +59,13 @@
         </div>
         <hr>
         <div class="form form-price">
-            <lable>Масло: </lable><input name="oil" type="text"><br>
-            <lable>Масляный фильтр: </lable><input name="oil_filter" type="text"><br>
-            <lable>Прокладка сливная: </lable><input name="oil_gasket" type="text"><br>
-            <lable>Воздушный: </lable><input name="air_filter" type="text"><br>    
-            <lable>Салонный: </lable><input name="salon_filter" type="text"><br>
-            <lable>Тормозная: </lable><input name="break_fluid" type="text"><br>
-            <lable>Свечи: </lable><input name="plugs" type="text"><br>
+            <lable>Масло: </lable><input name="oil" type="text"><lable>номер:</lable><input name="oil_number" type="text"><lable>объем: </lable><input name="oil_volume" type="text"><br>
+            <lable>Масляный фильтр: </lable><input name="oil_filter" type="text"><lable>номер:</lable><input name="oil_filter_number" type="text"><br>
+            <lable>Прокладка сливная: </lable><input name="oil_gasket" type="text"><lable>номер:</lable><input name="oil_gasket_number" type="text"><br>
+            <lable>Воздушный: </lable><input name="air_filter" type="text"><lable>номер:</lable><input name="air_filter_number" type="text"><br>    
+            <lable>Салонный: </lable><input name="salon_filter" type="text"><lable>номер:</lable><input name="salon_filter_number" type="text"><br>
+            <lable>Тормозная: </lable><input name="break_fluid" type="text"><lable>номер:</lable><input name="break_fluid_number" type="text"><br>
+            <lable>Свечи: </lable><input name="plugs" type="text"><lable>номер:</lable><input name="plugs_number" type="text"><br>
             <lable>Диагностика</lable><input name="diagnostics" type="text"><br>
             <button class="add-price-button">Добавить</button>
         </div>

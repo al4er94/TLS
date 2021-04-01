@@ -87,6 +87,12 @@ class ServicsCalc{
                 . "`pads_front_price` VARCHAR(256) NOT NULL , "
                 . "`pads_rear_price` VARCHAR(256) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
         $wpdb->query($sql);
+        $sql = "CREATE TABLE `".PREFIX."calc_code_price` ( "
+                . "`id` INT NOT NULL AUTO_INCREMENT , "
+                . "`code` VARCHAR(256) NOT NULL , "
+                . "`price` FLOAT NOT NULL , PRIMARY KEY (`id`)) "
+                . "ENGINE = InnoDB;";
+        $wpdb->query($sql);
   
     }
     
@@ -211,6 +217,25 @@ class ServicsCalc{
         }else{
             $wpdb->update($table, $data, ['price_id' => $priceId]);;
         }
+        // Обновление или создание номеров запчастей
+        $priceTable = $wpdb->get_results("SELECT `id` FROM `".$wpdb->prefix."calc_price_parts` WHERE `price_id`=".$priceId);
+        $table = $wpdb->prefix.'calc_price_parts';
+        $data = [
+            'price_id' => $priceId,
+            'oil_price' => $_POST['dataArray']['oil_number'],
+            'oil_volume' => $_POST['dataArray']['oil_volume'],
+            'oil_filter_price' => $_POST['dataArray']['oil_filter_number'],
+            'oil_gasket_price' => $_POST['dataArray']['oil_gasket_number'],
+            'air_filter_price' => $_POST['dataArray']['air_filter_number'],
+            'salon_filter_price' => $_POST['dataArray']['salon_filter_number'],
+            'break_fluid_price' => $_POST['dataArray']['break_fluid_number'],
+            'plugs_price' => $_POST['dataArray']['plugs_number'],
+        ]; 
+        if(count($priceTable)==0){
+            $wpdb->insert($table, $data);
+        }else{
+            $wpdb->update($table, $data, ['price_id' => $priceId]);
+        }
         echo 'Прайс обновлен!';
         wp_die();
     }
@@ -231,7 +256,16 @@ class ServicsCalc{
                 . "WHERE `manufacture_id`=".intval($_POST['manufacturer'])." AND"
                 . "`model_id`=".intval($_POST['model'])." AND"
                 . "`chassis_id`=".intval($_POST['chasis']));
-        
+        $codeTable = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."calc_code_price` ");
+        $codeArr = array();
+        foreach ($codeTable as $obj){
+            $codeArr[$obj->code] = $obj->price;
+        }
+        foreach ($priceTableParts[0] as $key => &$part){
+            if(isset($codeArr[$part])){
+                $part = $codeArr[$part];
+            }
+        }
         $data['priceTable'] = !empty($priceTable)?$priceTable[0]:array();
         $data['priceTableParts'] = !empty($priceTableParts)?$priceTableParts[0]:array();
         echo json_encode($data);

@@ -53,6 +53,7 @@ var calcPublicScript = {
             chasis: document.querySelector('.service form select[name=chasis_select]').value
         }
         jQuery.post(ajaxurl, data, function(response) {
+            console.log(response);
             let resp = JSON.parse(response);
             console.log(resp);
             if(resp.priceTable.length !== 0){
