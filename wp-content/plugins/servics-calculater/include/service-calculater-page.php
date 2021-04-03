@@ -1,8 +1,10 @@
 <?php 
-//echo $data;
+//var_dump($_COOKIE);
+if(!isset($_COOKIE['calcContent']) || $_COOKIE['calcContent'] == 1){
 ?>
 <div id = "content_calc">   
     <h1>Калькулятор</h1>
+    <button id="calc_content_1">Массовое обновление</button>
     <div class="add_data">
         <h2>Добавить сущность</h2>
         <div class = "form manufacturer-form">
@@ -40,7 +42,7 @@
         </div>
     </div>
     <div class="add_data">
-        <h2>Добавить прайс</h2>
+        <h2>Добавить/изменить прайс</h2>
         <div class = "form add-price-id">
             <select name="manufacturer_select">
                 <option value =""></option>
@@ -71,3 +73,23 @@
         </div>
     </div>
 </div>
+<?php }
+else if(isset($_COOKIE['calcContent']) || $_COOKIE['calcContent'] == 2){?>
+<div id = "content_calc">   
+    <h1>Калькулятор</h1>
+    <button id="calc_content_2">Обновление прайсов</button>
+    <h2>Массовое обновление работы</h2>
+    <br>
+    <div class="form form-price-2">
+        <lable>Масло: </lable><input name="oil" type="text"><br>
+        <lable>Масляный фильтр: </lable><input name="oil_filter" type="text"><br>
+        <lable>Прокладка сливная: </lable><input name="oil_gasket" type="text"><br>
+        <lable>Воздушный: </lable><input name="air_filter" type="text"><br>    
+        <lable>Салонный: </lable><input name="salon_filter" type="text"><br>
+        <lable>Тормозная: </lable><input name="break_fluid" type="text"><br>
+        <lable>Свечи: </lable><input name="plugs" type="text"><br>
+        <lable>Диагностика</lable><input name="diagnostics" type="text"><br>
+        <button class="add-price-button-2">Обновить</button>
+    </div>
+</div>
+<?php } ?>

@@ -1,5 +1,19 @@
 var calculateOrder = {
     init:function(){   
+        
+        //Изменение производителя в добавлении прайса
+        jQuery('#content_calc #calc_content_1').on('click', function(){
+           console.log(document.cookie);
+           document.cookie = "calcContent=2";
+           location.reload();
+        });
+        
+        jQuery('#content_calc #calc_content_2').on('click', function(){
+           console.log(document.cookie);
+           document.cookie = "calcContent=1";
+           location.reload();
+        });
+        
         //Добавляем производителя
         jQuery('#content_calc .add_manufacturer').on('click', function(){
            calculateOrder.addManufacturer();
@@ -56,6 +70,12 @@ var calculateOrder = {
                 alert(response);
             });
         });
+        
+        //Добавляем прайс в БД
+        jQuery('#content_calc .add-price-button-2').on('click', function(){
+            let inputArr= document.querySelectorAll('.add_data .form-price-2 input');
+        })
+
         
     },
     addManufacturer:function(){
