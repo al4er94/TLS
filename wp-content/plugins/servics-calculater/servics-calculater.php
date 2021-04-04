@@ -29,6 +29,7 @@ class ServicsCalc{
         add_action( 'wp_ajax_addPriceInBd', array(__CLASS__, 'addPriceInBd'));
         add_action( 'wp_ajax_getPrice', array(__CLASS__, 'getPrice'));
         add_action( 'wp_ajax_saveCart', array(__CLASS__, 'saveCart'));
+        add_action( 'wp_ajax_updateAllPrice', array(__CLASS__, 'updateAllPrice'));
         //Для аяксов 
         add_action( 'wp_ajax_nopriv_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
         add_action( 'wp_ajax_nopriv_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
@@ -338,6 +339,22 @@ class ServicsCalc{
         wp_die();
     }
     
+    public static function updateAllPrice(){
+        global $wpdb;
+        $table = $wpdb->prefix.'calc_price';
+        $query = '';
+        foreach ($_POST['dataArray'] as $key => $value){
+            if(!empty($value)){
+                $query .= "`$key` = '$value',";
+            }
+        }
+        $sql = "UPDATE `$table` SET ".$query;
+        $sql = substr($sql,0,-1);
+        $wpdb->query($sql);
+        echo 'true';
+        wp_die();
+    }
+
     public static function sendMail(){
       wp_mail( 'shevch19944@gmail.com', 'TEst', 'Test_mes', 'webmaster@example.com' );
     }

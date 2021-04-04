@@ -71,9 +71,20 @@ var calculateOrder = {
             });
         });
         
-        //Добавляем прайс в БД
+        //Массовое обновление 
         jQuery('#content_calc .add-price-button-2').on('click', function(){
-            let inputArr= document.querySelectorAll('.add_data .form-price-2 input');
+            let inputArr= document.querySelectorAll('#content_calc .form-price-2 input');
+            let dataArray = {};
+            inputArr.forEach(element => {
+                dataArray[element.getAttribute('name')] = element.value;
+            });
+            let data = {
+                action: 'updateAllPrice',
+                dataArray: dataArray
+            }
+            jQuery.post(ajaxurl, data, function(response) {
+                alert("У");
+            });
         })
 
         
