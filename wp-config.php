@@ -26,7 +26,7 @@ define( 'DB_NAME', 'tls' );
 define( 'DB_USER', 'root' );
 
 /** Пароль к базе данных MySQL */
-define( 'DB_PASSWORD', '' );
+define( 'DB_PASSWORD', 'root' );
 
 define( 'WP_HOME', 'http://localhost/tls/' );
 

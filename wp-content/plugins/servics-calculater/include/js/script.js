@@ -91,10 +91,6 @@ var calculateOrder = {
             var file_data = jQuery('#sortpicture')[0].files[0];
             var form_data = new FormData();
             form_data.append('file', file_data);
-            let data = {
-                action: 'uploadFile',
-                dataArr: form_data
-            }
             jQuery.ajax({
                 url: ajaxurl+'?action=uploadFile',
                 processData: false,
@@ -102,13 +98,27 @@ var calculateOrder = {
                 data:form_data,
                 type: "POST",
                 success: function(resp){
-                    if(resp == 'ture'){
+                    console.log(resp);
+                    if(resp == 'true'){
                         alert('Файл успешно загружен!');
+                        document.getElementById('start_update').style.display = 'block';
                     }
                 }
             });
         });
 
+        jQuery('#start_update').on('click', function() {
+            console.log('start_update');
+            let data = {
+                action: 'readExellFile'
+            }
+            jQuery.post(ajaxurl, data, function(response) {
+                console.log(response);
+                if(response == 'true'){
+                    alert("Файл успешно обновлен");
+                }
+            });
+        });
         
     },
     addManufacturer:function(){

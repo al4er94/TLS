@@ -7,6 +7,7 @@ Version: Номер версии плагина, например: 1.0.0
 Author: Имя автора плагина
 */
 define('SERVICE_CALC', plugin_dir_path(__FILE__));
+include_once("PHPExcel/Classes/PHPExcel.php");
 new ServicsCalc();
 class ServicsCalc{
     
@@ -31,6 +32,7 @@ class ServicsCalc{
         add_action( 'wp_ajax_saveCart', array(__CLASS__, 'saveCart'));
         add_action( 'wp_ajax_updateAllPrice', array(__CLASS__, 'updateAllPrice'));
         add_action( 'wp_ajax_uploadFile', array(__CLASS__, 'uploadFile'));
+        add_action( 'wp_ajax_readExellFile', array(__CLASS__, 'readExellFile'));
         //Для аяксов 
         add_action( 'wp_ajax_nopriv_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
         add_action( 'wp_ajax_nopriv_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
@@ -38,7 +40,7 @@ class ServicsCalc{
         add_action( 'wp_ajax_nopriv_saveCart', array(__CLASS__, 'saveCart'));
         
         register_activation_hook(__FILE__, array(__CLASS__, 'updateBD'));
-        //self::updateBD();
+        //self::readExellFile();
     }
     
     public function changeTitle($title){
@@ -362,10 +364,36 @@ class ServicsCalc{
             chmod(__DIR__.'/uploads', 0777);
         }
         if ( 0 < $_FILES['file']['error'] ) {
-            echo 'Error: ' . $_FILES['file']['error'] . '<br>';
+            echo 'Error:';
         }
         move_uploaded_file($_FILES['file']['tmp_name'], __DIR__.'/uploads/' . 'price.xlsx');
-        chmod(__DIR__.'/uploads/' . 'price.xlsx', 0777);
+        @chmod(__DIR__.'/uploads/' . 'price.xlsx', 0777);
+        echo 'true';
+        wp_die();
+    }
+
+    public static function readExellFile(){
+        global $wpdb;
+        if(!file_exists(__DIR__.'/uploads/' . 'price.xlsx')){
+            echo 'false';
+            wp_die();
+        }
+        $excel = PHPExcel_IOFactory::load(__DIR__.'/uploads/' . 'price.xlsx');
+        foreach($excel ->getWorksheetIterator() as $worksheet) {
+            $lists[] = $worksheet->toArray();
+        }
+        foreach($lists[0] as $price){
+            $priceTable = $wpdb->get_results("SELECT `id` FROM `".$wpdb->prefix."calc_code_price` WHERE `code`='".strtoupper($price[0])."'");
+            $data = [
+                'code' => strtoupper($price[0]),
+                'price' => $price[1]
+            ];
+            if(count($priceTable)==0){
+                $wpdb->insert($wpdb->prefix."calc_code_price", $data);
+            }else{
+                $wpdb->update($wpdb->prefix."calc_code_price", $data, ['code' => strtoupper($price[0])]);
+            }
+        }
         echo 'true';
         wp_die();
     }

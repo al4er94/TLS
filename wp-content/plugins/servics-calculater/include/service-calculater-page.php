@@ -94,6 +94,7 @@ else if(isset($_COOKIE['calcContent']) || $_COOKIE['calcContent'] == 2){?>
     <br>
     <hr>
     <input id="sortpicture" type="file" name="sortpic" />
-    <button id="upload">Upload</button>
+    <button id="upload">Загрузить</button>
+    <button id="start_update" style="display:none;">Обновить прайс</button>
 </div>
 <?php } ?>
