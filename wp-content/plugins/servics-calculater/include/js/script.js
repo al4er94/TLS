@@ -85,7 +85,29 @@ var calculateOrder = {
             jQuery.post(ajaxurl, data, function(response) {
                 alert("У");
             });
-        })
+        }),
+
+        jQuery('#upload').on('click', function() {
+            var file_data = jQuery('#sortpicture')[0].files[0];
+            var form_data = new FormData();
+            form_data.append('file', file_data);
+            let data = {
+                action: 'uploadFile',
+                dataArr: form_data
+            }
+            jQuery.ajax({
+                url: ajaxurl+'?action=uploadFile',
+                processData: false,
+                contentType: false,
+                data:form_data,
+                type: "POST",
+                success: function(resp){
+                    if(resp == 'ture'){
+                        alert('Файл успешно загружен!');
+                    }
+                }
+            });
+        });
 
         
     },

@@ -30,6 +30,7 @@ class ServicsCalc{
         add_action( 'wp_ajax_getPrice', array(__CLASS__, 'getPrice'));
         add_action( 'wp_ajax_saveCart', array(__CLASS__, 'saveCart'));
         add_action( 'wp_ajax_updateAllPrice', array(__CLASS__, 'updateAllPrice'));
+        add_action( 'wp_ajax_uploadFile', array(__CLASS__, 'uploadFile'));
         //Для аяксов 
         add_action( 'wp_ajax_nopriv_changeManufacturerSelect', array(__CLASS__, 'changeManufacturerSelect'));
         add_action( 'wp_ajax_nopriv_changeModelSelect', array(__CLASS__, 'changeModelSelect'));
@@ -300,9 +301,9 @@ class ServicsCalc{
         wp_enqueue_script('calcscript');
         wp_localize_script( 'calcscript', 'ajaxurl', 
             array(
-		'url' => admin_url('admin-ajax.php')
+		        'url' => admin_url('admin-ajax.php')
             )
-	); 
+	    ); 
         ob_start();
         include( 'include/show_form_in_page.php' );
         return ob_get_clean(); 
@@ -351,6 +352,20 @@ class ServicsCalc{
         $sql = "UPDATE `$table` SET ".$query;
         $sql = substr($sql,0,-1);
         $wpdb->query($sql);
+        echo 'true';
+        wp_die();
+    }
+
+    public static function uploadFile(){    
+        if(!is_dir(__DIR__.'/uploads')){
+            mkdir(__DIR__.'/uploads', 0777);
+            chmod(__DIR__.'/uploads', 0777);
+        }
+        if ( 0 < $_FILES['file']['error'] ) {
+            echo 'Error: ' . $_FILES['file']['error'] . '<br>';
+        }
+        move_uploaded_file($_FILES['file']['tmp_name'], __DIR__.'/uploads/' . 'price.xlsx');
+        chmod(__DIR__.'/uploads/' . 'price.xlsx', 0777);
         echo 'true';
         wp_die();
     }

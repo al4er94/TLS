@@ -91,5 +91,9 @@ else if(isset($_COOKIE['calcContent']) || $_COOKIE['calcContent'] == 2){?>
         <lable>Диагностика</lable><input name="diagnostics" type="text"><br>
         <button class="add-price-button-2">Обновить</button>
     </div>
+    <br>
+    <hr>
+    <input id="sortpicture" type="file" name="sortpic" />
+    <button id="upload">Upload</button>
 </div>
 <?php } ?>
