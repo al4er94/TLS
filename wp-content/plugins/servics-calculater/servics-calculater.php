@@ -265,9 +265,12 @@ class ServicsCalc{
         foreach ($codeTable as $obj){
             $codeArr[$obj->code] = $obj->price;
         }
-        foreach ($priceTableParts[0] as $key => &$part){
-            if(isset($codeArr[$part])){
-                $part = $codeArr[$part];
+        
+        if(!isset($_POST['admin']) || $_POST['admin'] == 'false'){
+            foreach ($priceTableParts[0] as $key => &$part){
+                if(isset($codeArr[$part])){
+                    $part = $codeArr[$part];
+                }
             }
         }
         $data['priceTable'] = !empty($priceTable)?$priceTable[0]:array();

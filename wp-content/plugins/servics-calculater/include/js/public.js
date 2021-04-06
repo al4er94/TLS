@@ -35,6 +35,7 @@ var calcPublicScript = {
         calcPublicScript.setManufacturer();
         
     },
+    
     getCarPage:function(link){
        let car = jQuery(link).data('car');
        localStorage.setItem('manufacturer', car);
